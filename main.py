@@ -4,13 +4,17 @@ import sys
 
 def main():
     parser = argparse.ArgumentParser(description="Main runner for RL-Basics project.")
-    parser.add_argument("script", help="The script to run.", choices=["frozen_lake"])
+    parser.add_argument("script", help="The script to run.", choices=["frozen_lake", "taxi", "cliff_walking"])
 
     args, unknown = parser.parse_known_args()
 
     script_to_run = None
     if args.script == "frozen_lake":
         script_to_run = "src/run_frozen_lake.py"
+    elif args.script == "taxi":
+        script_to_run = "src/run_taxi.py"
+    elif args.script == "cliff_walking":
+        script_to_run = "src/run_cliff_walking.py"
 
     if script_to_run:
         try:
