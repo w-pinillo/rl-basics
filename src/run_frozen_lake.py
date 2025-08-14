@@ -1,16 +1,17 @@
 import gymnasium as gym
 import numpy as np
 import random
+import pandas as pd
 
-env = gym.make("FrozenLake-v1", render_mode="human")
+env = gym.make("FrozenLake-v1", is_slippery=False, render_mode="ansi")
 n_states = env.observation_space.n
 n_actions = env.action_space.n
 
 Q = np.zeros((n_states, n_actions))
-alpha = 0.8
+alpha = 0.2
 gamma = 0.95
-eps = 0.1
-episodes = 2000
+eps = 0.4
+episodes = 100000
 
 for ep in range(episodes):
     obs, _ = env.reset()
@@ -26,13 +27,13 @@ for ep in range(episodes):
         Q[obs, a] = Q[obs, a] + alpha * (reward + gamma * np.max(Q[next_obs]) - Q[obs, a])
         obs = next_obs
 
-# Probar política greedy y mostrar una partida
+# Test greedy policy and show a game
 obs, _ = env.reset()
-print(env.render())  # imprime tablero inicial
+print(env.render())  # prints initial board
 done = False
 while not done:
     a = np.argmax(Q[obs])
     obs, reward, terminated, truncated, info = env.step(a)
     done = terminated or truncated
     print(env.render())
-print("Recompensa final:", reward)
+print("Final reward:", reward)

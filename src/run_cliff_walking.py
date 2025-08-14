@@ -3,7 +3,7 @@ import numpy as np
 import random
 import pandas as pd
 
-env = gym.make("CliffWalking-v0", render_mode="human")
+env = gym.make("CliffWalking-v1", render_mode="human")
 n_states = env.observation_space.n
 n_actions = env.action_space.n
 
